@@ -8,6 +8,6 @@ import Main from './components/Main'
 
 ReactDOM.render((
   <Router>
-    < Main />
+    <Main />
   </Router>
 ), document.getElementById('container'))
