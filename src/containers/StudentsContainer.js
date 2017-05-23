@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import StudentList from '../components/StudentList'
-import StudentForm from '../components/StudentForm'
+import StudentsApp from '../components/StudentsApp'
 
 import { fetchStudents, createStudent }  from '../api'
 
@@ -10,30 +9,27 @@ class StudentsContainer extends Component {
   constructor(){
     super()
     this.state = {
-      names: []
+      students: []
     }
 
   }
 
   componentDidMount(){
     fetchStudents()
-      .then( data => this.setState({
-        names: data.map(student => student.name )
+      .then( students => this.setState({
+        students: students
       }) )
   }
 
   handleAddStudent(name){
-    this.setState( prevState =>  ({ names: [...prevState.names, name] }) )
     createStudent(name)
-      .catch(e => this.setState(prevState => ({names: prevState.names.filter(person => person !== name)})))
+      .then( student => this.setState( prevState =>  ({ students: [...prevState.students, student] }) ))
+      .catch(e => console.log(e))
   }
 
   render(){
     return (
-      <div>
-        < StudentList students={this.state.names} />
-        < StudentForm  onSubmit={ this.handleAddStudent.bind(this) }/>
-      </div>
+      < StudentsApp students={this.state.students} onSubmit={this.handleAddStudent.bind(this)} />
     )
   }
 }
