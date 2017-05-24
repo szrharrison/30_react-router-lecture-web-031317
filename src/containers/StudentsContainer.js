@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import StudentsApp from '../components/StudentsApp'
+import StudentsPage from '../components/StudentsPage'
 
-import { fetchStudents, createStudent }  from '../api'
+import { fetchStudents, createStudent, deleteStudent }  from '../api'
 
 class StudentsContainer extends Component {
 
@@ -12,6 +12,8 @@ class StudentsContainer extends Component {
       students: []
     }
 
+    this.handleAddStudent = this.handleAddStudent.bind(this)
+    this.handleDeleteStudent = this.handleDeleteStudent.bind(this)
   }
 
   componentDidMount(){
@@ -27,9 +29,20 @@ class StudentsContainer extends Component {
       .catch(e => console.log(e))
   }
 
+  handleDeleteStudent(id){
+    deleteStudent(id)
+      .then( () => {
+        this.setState( prevState => ({
+          students: prevState.students.filter( student => student.id !== id)
+        })
+      )
+      this.props.history.push('/students')
+    })
+  }
+
   render(){
     return (
-      < StudentsApp students={this.state.students} onSubmit={this.handleAddStudent.bind(this)} />
+      < StudentsPage students={this.state.students} onSubmit={this.handleAddStudent} onDelete={this.handleDeleteStudent} />
     )
   }
 }
