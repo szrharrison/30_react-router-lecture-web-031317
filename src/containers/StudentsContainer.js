@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import StudentList from '../components/StudentList'
-import StudentForm from '../components/StudentForm'
-import Student from '../components/Student'
-import AddStudentButton from '../components/AddStudentButton'
+import StudentsApp from '../components/StudentsApp'
 
 import { fetchStudents, createStudent }  from '../api'
 
@@ -19,44 +16,20 @@ class StudentsContainer extends Component {
 
   componentDidMount(){
     fetchStudents()
-      .then( data => this.setState({
-        students: data.map(student => ({id: student.id, name: student.name}) )
+      .then( students => this.setState({
+        students: students
       }) )
   }
 
   handleAddStudent(name){
     createStudent(name)
-    this.setState( prevState =>  {
-      return {
-        students: [...prevState.students, {name: name}]
-      }
-    })
+      .then( student => this.setState( prevState =>  ({ students: [...prevState.students, student] }) ))
+      .catch(e => console.log(e))
   }
 
   render() {
     return (
-      <div>
-        <Switch>
-          <Route exact path='/students'
-            render={ () => <StudentList students={this.state.students} /> }
-          />
-          <Route exact path='/students/new'
-            render={ () => {
-              return (
-                <StudentForm  onSubmit={ this.handleAddStudent.bind(this) }/>
-              )
-            }}
-          />
-          <Route path='/students/:id'
-            render={ routeProps => {
-              return (
-                <Student students={this.state.students} {...routeProps} />
-              )}
-            }
-          />
-        </Switch>
-        <AddStudentButton />
-      </div>
+      < StudentsApp students={this.state.students} onSubmit={this.handleAddStudent.bind(this)} />
     )
   }
 }
