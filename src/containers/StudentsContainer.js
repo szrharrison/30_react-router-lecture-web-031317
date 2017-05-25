@@ -14,6 +14,7 @@ class StudentsContainer extends Component {
 
     this.handleAddStudent = this.handleAddStudent.bind(this)
     this.handleDeleteStudent = this.handleDeleteStudent.bind(this)
+    this.handleUpdateStudent = this.handleUpdateStudent.bind(this)
   }
 
   componentDidMount(){
@@ -40,9 +41,23 @@ class StudentsContainer extends Component {
     })
   }
 
+  handleUpdateStudent(student){
+    this.setState(prevState => {
+      return {
+        students: prevState.students.map(s => {
+          if (s.id === student.id) {
+            return student
+          } else {
+            return s
+          }
+        })
+      }
+    })
+  }
+
   render(){
     return (
-      < StudentsPage students={this.state.students} onSubmit={this.handleAddStudent} onDelete={this.handleDeleteStudent} />
+      < StudentsPage students={this.state.students} onSubmit={this.handleAddStudent} onDelete={this.handleDeleteStudent} onUpdate={this.handleUpdateStudent}/>
     )
   }
 }

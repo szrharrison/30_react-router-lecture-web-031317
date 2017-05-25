@@ -3,6 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom'
 
 import StudentForm from './StudentForm'
 import StudentShow from './StudentShow'
+import StudentEdit from './StudentEdit'
 
 function StudentsPage(props) {
   const nameEls = props.students.map( (student, i) =>
@@ -24,10 +25,14 @@ function StudentsPage(props) {
         <div className='col-md-8'>
           <Switch>
             <Route path="/students/new" render={() => < StudentForm  onSubmit={ props.onSubmit }/>}/>
-            <Route path="/students/:id" render={ ({match}) => {
+            <Route exact path="/students/:id" render={ ({match}) => {
               const student = props.students.find(student => student.id === parseInt(match.params.id))
               return < StudentShow student={student} onDelete={ props.onDelete }/>
             } }/>
+            < Route path="/students/:id/edit" render={({match}) => {
+              const student = props.students.find( s => s.id === parseInt(match.params.id))
+              return < StudentEdit student={student} onSubmit={ props.onUpdate } />
+            }} />
           </Switch>
         </div>
       </div>
