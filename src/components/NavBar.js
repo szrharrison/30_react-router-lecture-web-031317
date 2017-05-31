@@ -7,7 +7,8 @@ function NavBar(props){
     black: 'navbar-inverse',
     white: 'navbar-default'
   }
-  colors['black']
+
+  console.log(props)
   return (
     <nav className={`navbar ${colors[props.color]}`}>
       <div className='container-fluid'>
@@ -22,6 +23,8 @@ function NavBar(props){
             <li><Link to="/">Home</Link></li>
             <li><Link to="/students">Students</Link></li>
             <li><Link to="/students/new">Add a Student</Link></li>
+            <li><Link to="/login">Log In</Link></li>
+            <li><a href="/logout" onClick={ props.logout }>Log Out</a></li>
           </ul>
         </div>
       </div>
