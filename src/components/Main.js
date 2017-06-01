@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from './NavBar'
