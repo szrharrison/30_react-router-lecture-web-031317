@@ -21,8 +21,6 @@ function NavBar(props){
             <li><Link to="/">Home</Link></li>
             <li><Link to="/students">Students</Link></li>
             <li><Link to="/students/new">Add a Student</Link></li>
-            <li><Link to="/login">Log In</Link></li>
-            <li><a href="/logout" onClick={ props.logout }>Log Out</a></li>
           </ul>
         </div>
       </div>
