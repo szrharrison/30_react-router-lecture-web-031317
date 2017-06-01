@@ -16,7 +16,24 @@
 + browserHistory
 + props.children???
 
++ After deleting - how to redirect?
++ updating the state when the student gets deleted
++ sending through the delete request to the API
+
 ### CHALLENGE
+
+### Update
++ We should be able to update each student
++ Visiting '/students/:id/edit' should show the update form
++ Submitting the form should change it in the database
++ The student form values should be pre-populated with that student's values
++ After submitting, we should go back to the student show page
+
+#### Hints
++ `defaultValue` for inputs
++ `refs`
+
+### Delete
 
 + Each student show page should have a delete button
 + When I click that button, we shoudl delete the student from the database

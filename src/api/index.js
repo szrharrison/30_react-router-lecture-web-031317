@@ -11,6 +11,10 @@ export function createStudent(name){
     },
     method: 'POST',
     body: JSON.stringify( {student: {name: name}} )
-  }).then(response => response.json() )
-    .then( data => console.log(data) )
+  }).then( res => res.json() )
+}
+
+export function deleteStudent(id){
+  return fetch(`http://localhost:3000/api/v1/students/${id}`, { method: 'DELETE'})
+    .then( res => res.json() )
 }

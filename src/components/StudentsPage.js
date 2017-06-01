@@ -2,8 +2,10 @@ import React from 'react'
 import { Route, Link, Switch } from 'react-router-dom'
 
 import StudentForm from './StudentForm'
+import StudentShow from './StudentShow'
+import StudentEdit from './StudentEdit'
 
-function StudentsApp(props) {
+function StudentsPage(props) {
   const nameEls = props.students.map( (student, i) =>
     <li key={i}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
   )
@@ -23,14 +25,18 @@ function StudentsApp(props) {
         <div className='col-md-8'>
           <Switch>
             <Route path="/students/new" render={() => < StudentForm  onSubmit={ props.onSubmit }/>}/>
-            <Route path="/students/:id" render={({match}) => {
+            <Route exact path="/students/:id" render={ ({match}) => {
               const student = props.students.find(student => student.id === parseInt(match.params.id))
-              return <h1>{student.name}</h1>}
-            }/>
+              return < StudentShow student={student} onDelete={ props.onDelete }/>
+            } }/>
+            < Route path="/students/:id/edit" render={({match}) => {
+              const student = props.students.find( s => s.id === parseInt(match.params.id))
+              return < StudentEdit student={student} onSubmit={ props.onUpdate } />
+            }} />
           </Switch>
         </div>
       </div>
   )
 }
 
-export default StudentsApp
+export default StudentsPage
