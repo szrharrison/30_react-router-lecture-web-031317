@@ -22,7 +22,6 @@ class Main extends Component {
   }
 
   logout(e){
-    console.log(e)
     e.preventDefault()
     sessionStorage.removeItem('jwt')
     this.props.history.push('/login')
