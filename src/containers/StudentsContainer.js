@@ -9,7 +9,6 @@ class StudentsContainer extends Component {
 
   constructor() {
     super()
-    console.log("constructor!")
     this.state = {
       students: []
     }
@@ -19,7 +18,7 @@ class StudentsContainer extends Component {
     this.handleUpdateStudent = this.handleUpdateStudent.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetchStudents()
       .then( students => this.setState({
         students: students
@@ -61,7 +60,6 @@ class StudentsContainer extends Component {
   }
 
   render(){
-    console.log(this.state)
     return (
       < StudentsPage students={this.state.students} onSubmit={this.handleAddStudent} onDelete={this.handleDeleteStudent} onUpdate={this.handleUpdateStudent}/>
     )

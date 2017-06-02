@@ -20,7 +20,6 @@ class StudentForm extends Component {
     e.preventDefault()
     this.props.onSubmit( this.state.student )
     this.setState({student: ''})
-    window.history.pushState('/students')
   }
 
   render() {
